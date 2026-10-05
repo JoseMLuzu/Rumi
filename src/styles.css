@@ -2495,6 +2495,41 @@ summary:focus-visible,
   white-space: nowrap;
 }
 .controls-help-content small { line-height: 1.5; color: #7b8974; }
+.voice-panel.voice-compact,
+.editing .voice-panel.voice-compact {
+  top: auto;
+  bottom: 20px;
+  left: 20px;
+  width: auto;
+  max-width: calc(100vw - 140px);
+  padding: 5px;
+  border-radius: 14px;
+  z-index: 40;
+}
+.editing .voice-panel.voice-compact { bottom: 74px; }
+.voice-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.voice-compact .button {
+  min-height: 36px;
+  font-size: 11px;
+  padding: 8px 11px;
+}
+.voice-nearby { font-size: 10px; color: #617456; padding: 0 5px; }
+.voice-compact .voice-details,
+.editing .voice-compact .voice-details { display: block; }
+.voice-compact .voice-details summary { padding: 9px; }
+.voice-compact .voice-info {
+  width: min(280px, calc(100vw - 40px));
+  font-size: 12px;
+  text-align: left;
+  background: #fcfcf5;
+}
+.voice-compact .voice-info .voice-status { margin: 9px 0 4px; }
+.voice-info .button { margin-top: 12px; }
+.voice-compact .voice-error { max-width: 240px; margin: 8px 8px 4px; }
 .app:not(.editing) .screen-status-panel { bottom: 86px; }
 .storage-warning {
   position: absolute;
@@ -2527,6 +2562,8 @@ summary:focus-visible,
   .app:not(.editing) .room-menu { top: 76px; left: 12px; }
   .room-menu-content { width: min(300px, calc(100vw - 24px)); }
   .controls-help { bottom: 12px; right: 12px; }
+  .voice-panel.voice-compact { bottom: 12px; left: 12px; }
+  .voice-nearby { display: none; }
   .hud-destination { left: 12px; top: 133px; }
   .app:not(.editing) .touch-movement { bottom: 77px; }
 }
@@ -2538,8 +2575,11 @@ summary:focus-visible,
   .app:not(.editing) .header-actions .button.primary { margin-left: 0; }
   .app:not(.editing) .topbar .button .ui-icon { display: none; }
   .controls-help > summary span { display: none; }
+  .voice-panel.voice-compact { max-width: calc(100vw - 70px); }
 }
 .editing .room-heading.room-menu { top: 102px; }
+/* Keep an active microphone reachable; an idle join prompt need not cover the editor. */
+.editing .voice-compact[data-visible-in-editor='false'] { display: none; }
 @media (max-width: 520px) {
   .app:not(.editing) .edit-toggle .edit-button-label { display: none; }
   .app:not(.editing) .topbar .edit-toggle .ui-icon { display: block; }
@@ -2573,6 +2613,8 @@ summary:focus-visible,
     gap: 6px;
   }
   .editing .header-actions .button { white-space: nowrap; }
+  .editing .voice-panel.voice-compact { top: 84px; bottom: auto; }
+  .editing .voice-compact .voice-info { top: calc(100% + 8px); bottom: auto; }
   .storage-warning { left: 12px; max-width: calc(100vw - 24px); }
   .editing .storage-warning { top: 142px; bottom: auto; }
 }
