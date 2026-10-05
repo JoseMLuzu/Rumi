@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import FurnitureEditor from './ui/FurnitureEditor.jsx';
 import Icon from './ui/Icon.jsx';
 
@@ -47,9 +47,39 @@ export default function RoomUI({
   targetDoor,
 }) {
   const [editorTab, setEditorTab] = useState('furniture');
+  const navigationMenu = useRef(null);
+  const accountMenu = useRef(null);
+  const helpMenu = useRef(null);
   const isCentral = room.id === visitor.centralRoomId;
   const isHome = room.id === visitor.personalRoomId;
   const travelBlocked = dirty || styleDirty || !!placement || isSaving;
+
+  useEffect(() => {
+    const menus = [navigationMenu, accountMenu, helpMenu];
+    // Dismiss only these non-modal menus; room/editor state remains owned by App.
+    const dismissOutside = (event) => {
+      for (const ref of menus) {
+        if (ref.current && !ref.current.contains(event.target)) ref.current.open = false;
+      }
+    };
+    const dismissOnEscape = (event) => {
+      if (event.key === 'Escape')
+        menus.forEach((ref) => {
+          if (ref.current) ref.current.open = false;
+        });
+    };
+    window.addEventListener('pointerdown', dismissOutside);
+    window.addEventListener('keydown', dismissOnEscape);
+    return () => {
+      window.removeEventListener('pointerdown', dismissOutside);
+      window.removeEventListener('keydown', dismissOnEscape);
+    };
+  }, []);
+
+  function navigate(action) {
+    action();
+    if (navigationMenu.current) navigationMenu.current.open = false;
+  }
 
   return (
     <div className="room-ui">
@@ -62,7 +92,6 @@ export default function RoomUI({
           </span>
           <div>
             <strong>Social Rooms</strong>
-            <span>A place to be together</span>
           </div>
         </div>
         <div className="header-actions">
@@ -80,6 +109,7 @@ export default function RoomUI({
           <span
             className={`save-status ${saveError ? 'save-error' : ''} ${dirty ? 'save-dirty' : ''}`}
             role="status"
+            hidden={!isEditing && !dirty && !styleDirty && !isSaving && !saveError}
           >
             <span className="status-dot" />
             {readOnly
@@ -106,23 +136,30 @@ export default function RoomUI({
               {isSaving ? 'Saving…' : 'Save Room'}
             </button>
           )}
-          <button
-            className="button primary"
-            onClick={onToggleEdit}
-            disabled={readOnly || seated || styleDirty}
-            title={
-              readOnly
-                ? 'This room is read-only.'
-                : styleDirty
-                  ? 'Apply or discard the room style preview first.'
-                  : seated
-                    ? 'Stand up before decorating.'
-                    : undefined
-            }
-          >
-            <Icon name={isEditing ? 'check' : 'edit'} />
-            {isEditing ? 'Done decorating' : isCentral ? 'Edit Living Room' : 'Edit Room'}
-          </button>
+          {!readOnly && (
+            <button
+              className="button primary edit-toggle"
+              onClick={onToggleEdit}
+              aria-label={
+                isEditing ? 'Done decorating' : isCentral ? 'Edit Living Room' : 'Edit Room'
+              }
+              disabled={readOnly || seated || styleDirty}
+              title={
+                readOnly
+                  ? 'This room is read-only.'
+                  : styleDirty
+                    ? 'Apply or discard the room style preview first.'
+                    : seated
+                      ? 'Stand up before decorating.'
+                      : undefined
+              }
+            >
+              <Icon name={isEditing ? 'check' : 'edit'} />
+              <span className="edit-button-label">
+                {isEditing ? 'Done decorating' : isCentral ? 'Edit Living Room' : 'Edit Room'}
+              </span>
+            </button>
+          )}
           <button
             className="button secondary spaces-switch"
             onClick={onOpenSpaces}
@@ -136,7 +173,7 @@ export default function RoomUI({
             <Icon name="rooms" />
             Spaces
           </button>
-          <details className="account-menu">
+          <details ref={accountMenu} className="account-menu">
             <summary title="Your account">
               {visitor.displayName || visitor.name}
               <span aria-hidden="true"> ▾</span>
@@ -164,62 +201,79 @@ export default function RoomUI({
         </div>
       </header>
 
-      <section className="room-heading">
-        <p className="eyebrow">
-          {visitor.spaceName ||
-            (isCentral ? 'OUR SHARED HOUSE' : isHome ? 'YOUR COZY CORNER' : 'VISITING A BEDROOM')}
-        </p>
-        <h1>{isCentral ? 'Meet in the living room.' : room.name}</h1>
-        <p>
-          {isCentral
-            ? 'Pick a seat, watch something together, and stay a little longer.'
-            : !isHome
-              ? 'Come in and say hello.'
-              : isEditing
-                ? 'A few little changes. A whole new feeling.'
-                : 'Your bedroom opens onto the shared living room.'}
-        </p>
-        <nav className="room-navigation" aria-label="Travel between rooms">
-          {!isCentral && (
+      <details ref={navigationMenu} className="room-heading room-menu">
+        <summary title="Room navigation" aria-label="Room navigation">
+          <Icon name="home" />
+          <span className="room-menu-location">
+            <span className="eyebrow">{visitor.spaceName || 'Social Rooms'}</span>
+            <span>{isCentral ? 'Living room' : isHome ? 'My bedroom' : room.name}</span>
+          </span>
+          <span className="menu-chevron" aria-hidden="true">
+            ⌄
+          </span>
+        </summary>
+        <div className="room-menu-content">
+          <p className="eyebrow">
+            {visitor.spaceName ||
+              (isCentral ? 'OUR SHARED HOUSE' : isHome ? 'YOUR COZY CORNER' : 'VISITING A BEDROOM')}
+          </p>
+          <h1>{isCentral ? 'Meet in the living room.' : room.name}</h1>
+          <p>
+            {isCentral
+              ? 'Pick a seat, watch something together, and stay a little longer.'
+              : !isHome
+                ? 'Come in and say hello.'
+                : isEditing
+                  ? 'A few little changes. A whole new feeling.'
+                  : 'Your bedroom opens onto the shared living room.'}
+          </p>
+          <nav className="room-navigation" aria-label="Travel between rooms">
+            {!isCentral && (
+              <button
+                className="button secondary"
+                disabled={travelBlocked}
+                onClick={() => navigate(() => onTravel(visitor.centralRoomId))}
+              >
+                <Icon name="home" />
+                Go to Living Room
+              </button>
+            )}
+            <button
+              className="button secondary"
+              disabled={travelBlocked || isHome}
+              onClick={() => navigate(() => onLocateRoom(visitor.personalRoomId))}
+            >
+              <Icon name="home" />
+              Find My Door
+            </button>
             <button
               className="button secondary"
               disabled={travelBlocked}
-              onClick={() => onTravel(visitor.centralRoomId)}
+              onClick={() => navigate(onOpenDirectory)}
             >
-              <Icon name="home" />
-              Go to Living Room
+              <Icon name="rooms" />
+              Find Bedrooms
             </button>
+            {isHome && !readOnly && (
+              <button className="button quiet" onClick={onToggleVisits}>
+                {visitsOpen ? 'Cerrar a nuevas visitas' : 'Abrir a visitas'}
+              </button>
+            )}
+          </nav>
+          {travelBlocked && (
+            <p className="travel-hint" role="status">
+              Save furniture, apply or discard style changes, and finish placement before traveling.
+            </p>
           )}
-          <button
-            className="button secondary"
-            disabled={travelBlocked || isHome}
-            onClick={() => onLocateRoom(visitor.personalRoomId)}
-          >
-            <Icon name="home" />
-            Find My Door
-          </button>
-          <button className="button secondary" disabled={travelBlocked} onClick={onOpenDirectory}>
-            <Icon name="rooms" />
-            Find Bedrooms
-          </button>
-          {isHome && !readOnly && (
-            <button className="button quiet" onClick={onToggleVisits}>
-              {visitsOpen ? 'Cerrar a nuevas visitas' : 'Abrir a visitas'}
-            </button>
-          )}
-        </nav>
-        {targetDoor && (
-          <p className="hall-destination" role="status">
-            {targetDoor.name} · {targetDoor.wing === 'West' ? 'Left' : 'Right'} hallway · Door{' '}
-            {targetDoor.bay}. Follow the gold doorway.
-          </p>
-        )}
-        {travelBlocked && (
-          <p className="travel-hint" role="status">
-            Save furniture, apply or discard style changes, and finish placement before traveling.
-          </p>
-        )}
-      </section>
+        </div>
+      </details>
+
+      {targetDoor && (
+        <p className="hud-destination" role="status">
+          {targetDoor.name} · {targetDoor.wing === 'West' ? 'Left' : 'Right'} hallway · Door{' '}
+          {targetDoor.bay}. Follow the gold doorway.
+        </p>
+      )}
 
       {saveError && (
         <p className="storage-warning" role="alert">
@@ -308,35 +362,43 @@ export default function RoomUI({
         </aside>
       )}
 
-      <footer className="bottom-bar">
-        <span className="room-label">
-          <span className="room-label-dot" />
-          {room.name}{' '}
-          <span className="room-label-detail">
-            / {isCentral ? 'Shared space' : isHome ? 'Personal space' : 'Visiting'}
+      {isEditing ? (
+        <footer className="bottom-bar">
+          <span className="room-label">
+            <span className="room-label-dot" />
+            {room.name}{' '}
+            <span className="room-label-detail">
+              / {isCentral ? 'Shared space' : isHome ? 'Personal space' : 'Visiting'}
+            </span>
           </span>
-        </span>
-        <div className="control-hint">
-          {isEditing ? (
-            <>
-              <span className="edit-dot" />
-              {placement
-                ? 'Click the floor to place · Rotate for a better fit'
-                : 'Select a piece or choose from the collection'}
-            </>
-          ) : (
-            <>
-              <span className="keys">
-                {['W', 'A', 'S', 'D'].map((key) => (
-                  <kbd key={key}>{key}</kbd>
-                ))}
-              </span>
-              <span>{isCentral ? 'Walk the hallways · E at a bedroom door' : 'Walk around'}</span>
-            </>
-          )}
-        </div>
-        <span className="version-label">You: green · Guests: coral</span>
-      </footer>
+          <div className="control-hint">
+            <span className="edit-dot" />
+            {placement
+              ? 'Click the floor to place · Rotate for a better fit'
+              : 'Select a piece or choose from the collection'}
+          </div>
+        </footer>
+      ) : (
+        <details ref={helpMenu} className="controls-help">
+          <summary aria-label="Movement controls">
+            <Icon name="info" />
+            <span>Controls</span>
+          </summary>
+          <div className="controls-help-content">
+            <strong>Make yourself at home.</strong>
+            <p>
+              <kbd>W A S D</kbd> Walk around
+            </p>
+            <p>
+              <kbd>E</kbd> Use an object or enter a door
+            </p>
+            <p>
+              <kbd>F</kbd> Sit down or stand up
+            </p>
+            <small>Open the room menu to find bedrooms.</small>
+          </div>
+        </details>
+      )}
     </div>
   );
 }

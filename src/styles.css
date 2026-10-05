@@ -2336,3 +2336,246 @@ summary:focus-visible,
     padding: 9px 11px;
   }
 }
+
+/* Walking keeps the room visible. Navigation and help expand only when requested. */
+.app:not(.editing) .topbar {
+  right: auto;
+  max-width: calc(100% - 40px);
+  height: 54px;
+  min-height: 0;
+  padding: 7px 10px;
+  gap: 18px;
+}
+.app:not(.editing) .brand {
+  width: auto;
+  gap: 9px;
+}
+.app:not(.editing) .brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}
+.app:not(.editing) .brand strong {
+  font-size: 14px;
+  letter-spacing: -0.3px;
+}
+.app:not(.editing) .header-actions {
+  flex-wrap: nowrap;
+  width: auto;
+  margin: 0;
+  gap: 6px;
+}
+.app:not(.editing) .topbar .button,
+.app:not(.editing) .account-menu summary {
+  min-height: 36px;
+  padding: 8px 10px;
+  font-size: 11px;
+}
+.app:not(.editing) .live-status {
+  background: transparent;
+  padding: 6px;
+  font-size: 11px;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topbar { z-index: 50; }
+.room-heading.room-menu {
+  top: 82px;
+  width: auto;
+  max-width: calc(100% - 40px);
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  pointer-events: auto;
+  z-index: 45;
+}
+.room-menu > summary,
+.controls-help > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 10px 13px;
+  border: 1px solid var(--ui-border);
+  border-radius: 13px;
+  background: var(--ui-surface);
+  color: #435a4c;
+  box-shadow: var(--ui-shadow);
+  list-style: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+.room-menu > summary::-webkit-details-marker,
+.controls-help > summary::-webkit-details-marker { display: none; }
+.room-menu > summary:focus-visible,
+.controls-help > summary:focus-visible,
+.voice-details > summary:focus-visible,
+.account-menu > summary:focus-visible {
+  outline: 3px solid #b97851;
+  outline-offset: 3px;
+}
+.room-menu-location { min-width: 0; }
+.room-menu-location > span { display: block; }
+.room-menu-location > span:last-child {
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.room-menu-location .eyebrow {
+  font-size: 8px;
+  margin-bottom: 3px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.menu-chevron { color: #80907b; }
+.room-menu-content {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: min(310px, calc(100vw - 40px));
+  padding: 18px;
+  border-radius: 17px;
+  border: 1px solid var(--ui-border);
+  background: #fcfcf5;
+  box-shadow: var(--ui-shadow);
+}
+.room-menu-content > p {
+  font-size: 12px;
+  color: #6d7363;
+  line-height: 1.5;
+}
+.room-menu-content h1 { font-size: 18px; }
+.hud-destination {
+  position: absolute;
+  left: 20px;
+  top: 140px;
+  max-width: 290px;
+  padding: 10px 13px;
+  border-radius: 12px;
+  background: #faf2dbe8;
+  color: #856735;
+  font-size: 11px;
+  line-height: 1.5;
+  pointer-events: none;
+}
+.controls-help {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  pointer-events: auto;
+  z-index: 40;
+}
+.controls-help > summary { font-size: 11px; }
+.controls-help-content {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+  width: min(280px, calc(100vw - 40px));
+  padding: 18px;
+  border-radius: 15px;
+  background: #fcfcf5;
+  border: 1px solid var(--ui-border);
+  box-shadow: var(--ui-shadow);
+  color: #596c5c;
+  font-size: 12px;
+}
+.controls-help-content p { display: flex; align-items: center; gap: 10px; }
+.controls-help-content kbd {
+  font: inherit;
+  font-size: 10px;
+  border-radius: 5px;
+  border: 1px solid #d9d1c3;
+  padding: 4px 6px;
+  white-space: nowrap;
+}
+.controls-help-content small { line-height: 1.5; color: #7b8974; }
+.app:not(.editing) .screen-status-panel { bottom: 86px; }
+.storage-warning {
+  position: absolute;
+  left: 20px;
+  bottom: 86px;
+  max-width: min(360px, calc(100vw - 40px));
+  margin: 0;
+  padding: 12px 15px;
+  border: 1px solid #dabfb1;
+  border-radius: 13px;
+  background: #fff4e9;
+  color: #874d35;
+  font-size: 12px;
+  line-height: 1.5;
+  z-index: 60;
+}
+
+@media (max-width: 760px) {
+  .app:not(.editing) .topbar {
+    left: 12px;
+    right: auto;
+    top: 12px;
+    max-width: calc(100% - 24px);
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+  .app:not(.editing) .brand > div { display: none; }
+  .app:not(.editing) .header-actions { gap: 4px; }
+  .app:not(.editing) .live-status .status-dot { display: none; }
+  .app:not(.editing) .room-menu { top: 76px; left: 12px; }
+  .room-menu-content { width: min(300px, calc(100vw - 24px)); }
+  .controls-help { bottom: 12px; right: 12px; }
+  .hud-destination { left: 12px; top: 133px; }
+  .app:not(.editing) .touch-movement { bottom: 77px; }
+}
+@media (max-width: 520px) {
+  .app:not(.editing) .topbar { gap: 7px; padding: 7px; }
+  .app:not(.editing) .topbar .button { padding: 8px; }
+  .app:not(.editing) .live-status { font-size: 10px; gap: 4px; padding: 3px; }
+  .app:not(.editing) .account-menu summary { max-width: 70px; padding: 8px; }
+  .app:not(.editing) .header-actions .button.primary { margin-left: 0; }
+  .app:not(.editing) .topbar .button .ui-icon { display: none; }
+  .controls-help > summary span { display: none; }
+}
+.editing .room-heading.room-menu { top: 102px; }
+@media (max-width: 520px) {
+  .app:not(.editing) .edit-toggle .edit-button-label { display: none; }
+  .app:not(.editing) .topbar .edit-toggle .ui-icon { display: block; }
+  .app:not(.editing) .edit-toggle { min-width: 36px; }
+  /* Pending changes take priority over navigation on a narrow toolbar. */
+  .app:not(.editing) .topbar:has(.save-status:not([hidden])) .live-status,
+  .app:not(.editing) .topbar:has(.save-status:not([hidden])) .spaces-switch,
+  .app:not(.editing) .topbar:has(.save-status:not([hidden])) .account-menu { display: none; }
+  .app:not(.editing) .topbar .save-status:not([hidden]) {
+    display: flex;
+    padding: 3px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .editing .topbar {
+    height: 54px;
+    min-height: 0;
+    padding: 7px;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+  .editing .brand { width: auto; }
+  .editing .brand > div,
+  .editing .header-actions > .live-status,
+  .editing .header-actions > .spaces-switch,
+  .editing .header-actions > .account-menu { display: none; }
+  .editing .header-actions {
+    width: auto;
+    margin-left: auto;
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+  .editing .header-actions .button { white-space: nowrap; }
+  .storage-warning { left: 12px; max-width: calc(100vw - 24px); }
+  .editing .storage-warning { top: 142px; bottom: auto; }
+}
+@media (max-width: 360px) {
+  .app:not(.editing) .account-menu summary { max-width: 60px; }
+}
