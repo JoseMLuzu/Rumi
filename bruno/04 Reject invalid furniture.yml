@@ -1,0 +1,26 @@
+info:
+  name: Reject central room saves
+  type: http
+  seq: 4
+http:
+  method: PUT
+  url: "{{baseUrl}}/api/rooms/1"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "items": [
+          { "id": "invalid-example", "type": "spaceship", "position": [0, 0, 0], "rotation": 0 }
+        ]
+      }
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "403"
+    - expression: res.body.error
+      operator: isString
+docs: Central room saves are rejected before validation or database writes. Only personal rooms can be decorated.

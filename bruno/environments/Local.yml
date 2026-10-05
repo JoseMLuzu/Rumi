@@ -1,0 +1,6 @@
+name: Local
+variables:
+  - name: baseUrl
+    value: http://127.0.0.1:5001
+  - name: savedName
+    value: Bruno Test

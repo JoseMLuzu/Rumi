@@ -1,0 +1,30 @@
+info:
+  name: Initialize visitor
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: "{{baseUrl}}/api/visitor"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      { "name": "{{savedName}}" }
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        bru.setVar("personalRoomId", res.body.personalRoomId);
+    - type: tests
+      code: |-
+        test("visitor is created or recognized", () => {
+          expect(res.status).to.be.oneOf([200, 201]);
+          expect(res.body.personalRoomId).to.be.a("number").and.greaterThan(1);
+          expect(res.body.centralRoomId).to.equal(1);
+        });
+docs: |-
+  Enter a saved name to create or reopen its bedroom. The same name works from another browser.
+  Names ignore capitalization and repeated spaces. Change savedName in the environment to test a different bedroom.
+  The cookie is temporary name-based identity, not authentication. The script captures the room ID for subsequent requests.

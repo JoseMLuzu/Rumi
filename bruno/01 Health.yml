@@ -1,0 +1,16 @@
+info:
+  name: Health
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: "{{baseUrl}}/api/health"
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.status
+      operator: eq
+      value: ok
+docs: Checks Flask HTTP availability. It does not query PostgreSQL.

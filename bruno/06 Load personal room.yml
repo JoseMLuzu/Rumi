@@ -1,0 +1,22 @@
+info:
+  name: Load personal room
+  type: http
+  seq: 6
+http:
+  method: GET
+  url: "{{baseUrl}}/api/rooms/{{personalRoomId}}"
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        bru.setVar("personalLayout", JSON.stringify({ items: res.body.items }));
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.items
+      operator: isArray
+    - expression: res.body.readOnly
+      operator: eq
+      value: "false"
+docs: Run Initialize visitor first. This GET captures a layout snapshot for Save personal room.

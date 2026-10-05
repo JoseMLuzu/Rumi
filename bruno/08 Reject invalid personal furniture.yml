@@ -1,0 +1,22 @@
+info:
+  name: Reject invalid personal furniture
+  type: http
+  seq: 8
+http:
+  method: PUT
+  url: "{{baseUrl}}/api/rooms/{{personalRoomId}}"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      { "items": [{ "id": "invalid-example", "type": "spaceship", "position": [0, 0, 0], "rotation": 0 }] }
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "400"
+    - expression: res.body.error
+      operator: isString
+docs: Ownership is valid, but the unknown furniture type is rejected without changing the saved layout.

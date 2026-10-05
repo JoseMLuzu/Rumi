@@ -1,0 +1,24 @@
+info:
+  name: Save personal room
+  type: http
+  seq: 7
+http:
+  method: PUT
+  url: "{{baseUrl}}/api/rooms/{{personalRoomId}}"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: "{{personalLayout}}"
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.items
+      operator: isArray
+docs: |-
+  Sends the exact complete layout captured by the preceding GET, with the same visitor cookie.
+  Load personal room immediately before sending to avoid saving an obsolete snapshot.
+  Only furniture in this client's room can change. Never reuse central-room starter IDs.
