@@ -1,0 +1,400 @@
+{
+  "dartRack": {
+    "label": "Diana perchero",
+    "description": "Jugar a los dardos",
+    "file": "01_diana_perchero.glb",
+    "width": 0.92,
+    "depth": 0.36,
+    "height": 1.0,
+    "center": [0.0, 0, 0.11000000033527613],
+    "color": "#a899ba",
+    "actions": ["darts", "accessory"],
+    "defaults": {
+      "accessories": []
+    },
+    "blocking": true
+  },
+  "retroRadio": {
+    "label": "Radio retro",
+    "description": "Escuchar radio",
+    "file": "02_radio_retro.glb",
+    "width": 0.78,
+    "depth": 0.385,
+    "height": 0.832,
+    "center": [0.0, 0, 0.032749999314546585],
+    "color": "#a899ba",
+    "actions": ["play", "pause"],
+    "defaults": {
+      "tracks": []
+    },
+    "blocking": true
+  },
+  "poster": {
+    "label": "Póster personalizable",
+    "description": "Ver imagen",
+    "file": "03_poster.glb",
+    "width": 0.79,
+    "depth": 0.151,
+    "height": 1.145,
+    "center": [0.0, 0, 0.013249998912215233],
+    "color": "#a899ba",
+    "actions": ["view"],
+    "defaults": {
+      "images": [],
+      "fit": "contain",
+      "crop": [0.5, 0.5],
+      "frameColor": "#805c42"
+    },
+    "blocking": true,
+    "surface": {
+      "width": 0.63,
+      "height": 0.93,
+      "y": 0.64,
+      "z": 0.05
+    },
+    "initialImage": "poster-initial.png"
+  },
+  "photoFrame": {
+    "label": "Marco de fotos",
+    "description": "Ver fotos",
+    "file": "04_marco_fotos.glb",
+    "width": 0.59,
+    "depth": 0.29,
+    "height": 0.595,
+    "center": [0.0, 0, -0.05000000074505806],
+    "color": "#a899ba",
+    "actions": ["view", "next"],
+    "defaults": {
+      "images": [],
+      "fit": "contain",
+      "crop": [0.5, 0.5],
+      "frameColor": "#805c42",
+      "slideshow": false,
+      "interval": 5
+    },
+    "blocking": true,
+    "surface": {
+      "width": 0.43,
+      "height": 0.43,
+      "y": 0.34,
+      "z": 0.05
+    },
+    "initialImage": "photoFrame-initial.png"
+  },
+  "visitorBoard": {
+    "label": "Pizarra de visitas",
+    "description": "Dejar un dibujo",
+    "file": "05_pizarra_visitas.glb",
+    "width": 1.04,
+    "depth": 0.243,
+    "height": 0.955,
+    "center": [0.0, 0, 0.05874999985098839],
+    "color": "#a899ba",
+    "actions": ["draw"],
+    "defaults": {},
+    "blocking": true,
+    "surface": {
+      "width": 0.88,
+      "height": 0.63,
+      "y": 0.6,
+      "z": 0.05
+    },
+    "initialImage": "visitorBoard-initial.png"
+  },
+  "guestBook": {
+    "label": "Libro de visitas",
+    "description": "Dejar mensaje",
+    "file": "06_libro_visitas.glb",
+    "width": 0.567,
+    "depth": 0.495,
+    "height": 0.305,
+    "center": [0.02850000560283661, 0, 0.04249999672174454],
+    "color": "#a899ba",
+    "actions": ["message"],
+    "defaults": {},
+    "blocking": true
+  },
+  "snackMachine": {
+    "label": "Máquina de snacks",
+    "description": "Elegir snack",
+    "file": "07_maquina_snacks.glb",
+    "width": 0.72,
+    "depth": 0.575,
+    "height": 1.28,
+    "center": [0.0, 0, 0.01749999076128006],
+    "color": "#a899ba",
+    "actions": ["snack", "consume"],
+    "defaults": {},
+    "blocking": true,
+    "initialImage": "snackMachine-initial.png"
+  },
+  "aquarium": {
+    "label": "Acuario",
+    "description": "Dar comida",
+    "file": "08_acuario.glb",
+    "width": 0.88,
+    "depth": 0.48,
+    "height": 0.688,
+    "center": [0.0, 0, 0.0],
+    "color": "#a899ba",
+    "actions": ["feed"],
+    "defaults": {
+      "fishNames": ["Sol", "Coral", "Azul"],
+      "color": "#8fcbd1",
+      "intensity": 0.4
+    },
+    "blocking": true
+  },
+  "discoBall": {
+    "label": "Bola de discoteca",
+    "description": "Modo fiesta",
+    "file": "09_bola_discoteca.glb",
+    "width": 0.693,
+    "depth": 0.693,
+    "height": 1.0,
+    "center": [0.0, 0, 0.0],
+    "color": "#a899ba",
+    "actions": ["toggle"],
+    "defaults": {
+      "color": "#a58acd",
+      "intensity": 0.6
+    },
+    "blocking": true
+  },
+  "handChair": {
+    "label": "Sillón con forma de mano",
+    "description": "Sentarse",
+    "file": "10_sillon_mano.glb",
+    "width": 0.885,
+    "depth": 0.607,
+    "height": 1.255,
+    "center": [-0.0925000011920929, 0, 0.0293186753988266],
+    "color": "#a899ba",
+    "actions": ["sit"],
+    "defaults": {
+      "pose": "normal"
+    },
+    "blocking": true,
+    "seatHeight": 0.39
+  },
+  "monsterRug": {
+    "label": "Alfombra monstruo",
+    "description": "Saludar al monstruo",
+    "file": "11_alfombra_monstruo.glb",
+    "width": 1.24,
+    "depth": 0.92,
+    "height": 0.104,
+    "center": [0.0, 0, 0.0],
+    "color": "#a899ba",
+    "actions": ["step"],
+    "defaults": {
+      "color": "#9874bf"
+    },
+    "blocking": false
+  },
+  "magicMirror": {
+    "label": "Espejo mágico",
+    "description": "Mirarse",
+    "file": "12_espejo_magico.glb",
+    "width": 0.66,
+    "depth": 0.62,
+    "height": 1.21,
+    "center": [0.0, 0, 0.0],
+    "color": "#a899ba",
+    "actions": ["mirror", "removeEffect"],
+    "defaults": {},
+    "blocking": true
+  },
+  "tinyDoor": {
+    "label": "Puerta diminuta",
+    "description": "Llamar a la puerta",
+    "file": "13_puerta_diminuta.glb",
+    "width": 0.42,
+    "depth": 0.202,
+    "height": 0.52,
+    "center": [0.0, 0, 0.03824999928474426],
+    "color": "#a899ba",
+    "actions": ["greet"],
+    "defaults": {},
+    "blocking": true
+  },
+  "noTouchButton": {
+    "label": "Botón de no tocar",
+    "description": "NO TOCAR",
+    "file": "14_boton_no_tocar.glb",
+    "width": 0.43,
+    "depth": 0.362,
+    "height": 0.32,
+    "center": [0.0, 0, 0.0010000020265579224],
+    "color": "#a899ba",
+    "actions": ["surprise"],
+    "defaults": {},
+    "blocking": true,
+    "initialImage": "noTouchButton-initial.png"
+  },
+  "sceneWindow": {
+    "label": "Ventana al espacio",
+    "description": "Ver paisaje",
+    "file": "15_ventana_espacio.glb",
+    "width": 1.04,
+    "depth": 0.3,
+    "height": 1.21,
+    "center": [0.0, 0, 0.04999999888241291],
+    "color": "#a899ba",
+    "actions": ["view"],
+    "defaults": {
+      "scene": "space",
+      "ambient": false
+    },
+    "blocking": true,
+    "surface": {
+      "width": 0.78,
+      "height": 0.98,
+      "y": 0.68,
+      "z": 0.05
+    },
+    "initialImage": "sceneWindow-initial.png"
+  },
+  "friendPortal": {
+    "label": "Portal a un amigo",
+    "description": "Visitar habitación",
+    "file": "16_portal_amigo.glb",
+    "width": 1.13,
+    "depth": 0.4,
+    "height": 1.695,
+    "center": [0.0, 0, 0.0],
+    "color": "#a899ba",
+    "actions": ["visit"],
+    "defaults": {
+      "destination": null
+    },
+    "blocking": true
+  },
+  "memoryCabinet": {
+    "label": "Vitrina de recuerdos",
+    "description": "Ver recuerdos",
+    "file": "17_vitrina_recuerdos.glb",
+    "width": 0.73,
+    "depth": 0.435,
+    "height": 1.29,
+    "center": [0.0, 0, -0.002500005066394806],
+    "color": "#a899ba",
+    "actions": ["inspect"],
+    "defaults": {
+      "slots": []
+    },
+    "blocking": true
+  },
+  "mysteryBox": {
+    "label": "Caja misteriosa",
+    "description": "Abrir caja",
+    "file": "18_caja_misteriosa.glb",
+    "width": 0.601,
+    "depth": 0.546,
+    "height": 0.775,
+    "center": [0.0, 0, -0.012000001966953278],
+    "color": "#a899ba",
+    "actions": ["open"],
+    "defaults": {},
+    "blocking": true
+  },
+  "coneLamp": {
+    "label": "Lámpara cono de tráfico",
+    "description": "Encender / apagar",
+    "file": "19_lampara_cono.glb",
+    "width": 0.54,
+    "depth": 0.54,
+    "height": 0.73,
+    "center": [0.0, 0, 0.0],
+    "color": "#a899ba",
+    "actions": ["toggle"],
+    "defaults": {
+      "color": "#ffce8c",
+      "intensity": 0.7
+    },
+    "blocking": true
+  },
+  "plasticThrone": {
+    "label": "Trono de silla plástica",
+    "description": "Sentarse en el trono",
+    "file": "20_trono_silla_plastica.glb",
+    "width": 0.625,
+    "depth": 0.575,
+    "height": 1.297,
+    "center": [0.0, 0, -0.002499997615814209],
+    "color": "#a899ba",
+    "actions": ["sit"],
+    "defaults": {
+      "pose": "normal"
+    },
+    "blocking": true,
+    "seatHeight": 0.45
+  },
+  "giantDuck": {
+    "label": "Patito gigante",
+    "description": "¡Cuac!",
+    "file": "21_patito_gigante.glb",
+    "width": 1.08,
+    "depth": 1.229,
+    "height": 1.01,
+    "center": [0.0, 0, 0.023111790418624878],
+    "color": "#a899ba",
+    "actions": ["squeak"],
+    "defaults": {
+      "color": "#e9be53"
+    },
+    "blocking": true
+  },
+  "eyePlant": {
+    "label": "Planta con ojos",
+    "description": "Saludar / regar",
+    "file": "22_planta_ojos.glb",
+    "width": 0.786,
+    "depth": 0.596,
+    "height": 1.1,
+    "center": [-0.00806957483291626, 0, 0.0379737913608551],
+    "color": "#a899ba",
+    "actions": ["wave", "water"],
+    "defaults": {},
+    "blocking": true
+  },
+  "wingToaster": {
+    "label": "Tostadora con alas",
+    "description": "Hacer tostada",
+    "file": "23_tostadora_alas.glb",
+    "width": 1.413,
+    "depth": 0.37,
+    "height": 0.655,
+    "center": [0.0, 0, 0.0],
+    "color": "#a899ba",
+    "actions": ["toast"],
+    "defaults": {},
+    "blocking": true
+  },
+  "crookedPicture": {
+    "label": "Cuadro torcido",
+    "description": "Enderezar cuadro",
+    "file": "24_cuadro_torcido.glb",
+    "width": 0.852,
+    "depth": 0.151,
+    "height": 0.859,
+    "center": [0.0, 0, 0.013249998912215233],
+    "color": "#a899ba",
+    "actions": ["straighten", "view"],
+    "defaults": {
+      "images": [],
+      "fit": "contain",
+      "crop": [0.5, 0.5],
+      "frameColor": "#805c42"
+    },
+    "blocking": true,
+    "surface": {
+      "width": 0.59,
+      "height": 0.63,
+      "y": 0.46,
+      "z": 0.05,
+      "tilt": -0.14
+    },
+    "initialImage": "crookedPicture-initial.png"
+  }
+}
