@@ -1,0 +1,47 @@
+{
+  "floor": {
+    "default": "wood",
+    "presets": {
+      "wood": {
+        "label": "Warm wood",
+        "color": "#d7b593",
+        "colors": ["#dfbd9a", "#d6b18e"],
+        "pattern": "planks"
+      },
+      "pale": {
+        "label": "Pale wood",
+        "color": "#e5d9c4",
+        "colors": ["#e9dfcd", "#ded0b9"],
+        "pattern": "planks"
+      },
+      "walnut": {
+        "label": "Walnut",
+        "color": "#89664e",
+        "colors": ["#977357", "#826049"],
+        "pattern": "planks"
+      },
+      "stone": { "label": "Stone tiles", "color": "#b1b6b2", "pattern": "tiles" },
+      "terracotta": { "label": "Terracotta", "color": "#c18b70", "pattern": "tiles" }
+    }
+  },
+  "walls": {
+    "default": "classic",
+    "presets": {
+      "classic": { "label": "Classic cream & sage", "color": "#f0e5d4", "accent": "#bac3ad" },
+      "cream": { "label": "Warm cream", "color": "#f0e5d4" },
+      "sage": { "label": "Sage green", "color": "#bcc8b4" },
+      "rose": { "label": "Soft rose", "color": "#dfbbb6" },
+      "blue": { "label": "Dusty blue", "color": "#b8c7d4" }
+    }
+  },
+  "background": {
+    "default": "city",
+    "presets": {
+      "city": { "label": "City skyline", "color": "#e6dfcf" },
+      "cream": { "label": "Cozy cream", "color": "#eae4db" },
+      "sky": { "label": "Morning sky", "color": "#d7e6ec" },
+      "lilac": { "label": "Soft lilac", "color": "#e3ddec" },
+      "night": { "label": "Quiet evening", "color": "#344757" }
+    }
+  }
+}
